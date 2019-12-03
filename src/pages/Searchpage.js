@@ -1,33 +1,24 @@
-import React, { Component } from "react";
+import React from "react";
 import { Map, TileLayer, Marker, Popup } from "react-leaflet";
 
-import SignUpModal from "./modals/SignUpModal";
-import LoginModal from "./modals/LoginModal";
-import MoreFiltersModal from "./modals/MoreFiltersModal";
-
-import PricePopover from "./popovers/PricePopover";
-import TypeOfPlacePopover from "./popovers/TypeOfPlacePopover";
-import GuestPopover from "./popovers/GuestPopover";
-import DatesPopover from "./popovers/DatesPopover";
 import { CardActionArea } from "@material-ui/core";
 import AppBar from "@material-ui/core/AppBar";
-import Button from "@material-ui/core/Button";
 
 import Card from "@material-ui/core/Card";
-import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Grid from "@material-ui/core/Grid";
 
-import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
-import { fade, makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
-import SearchIcon from "@material-ui/icons/Search";
-import InputBase from "@material-ui/core/InputBase";
-import ButtonBase from "@material-ui/core/ButtonBase";
+import StarIcon from "@material-ui/icons/Star";
+import grey from "@material-ui/core/colors/grey";
+
+import SearchAppbar from "./appbars/SearchAppbar";
+import SearchOptionsAppbar from "./appbars/SearchOptionsAppbar";
 
 import "./Map.css";
 
@@ -46,7 +37,8 @@ const useStyles = makeStyles(theme => ({
   },
   appBar: {
     backgroundColor: theme.palette.common.white,
-    borderBottom: `1px solid ${theme.palette.divider}`
+    borderBottom: `1px solid ${theme.palette.divider}`,
+    position: "sticky"
   },
   toolbar: {
     flexWrap: "wrap"
@@ -59,67 +51,6 @@ const useStyles = makeStyles(theme => ({
   },
   heroContent: {
     padding: theme.spacing(5, 1, 1, 5)
-  },
-
-  button: {
-    marginLeft: "auto"
-  },
-  btnSearchOptions: {
-    margin: theme.spacing(1)
-  },
-  input: {
-    display: "none"
-  },
-  search: {
-    position: "relative",
-    borderRadius: theme.shape.borderRadius,
-    backgroundColor: fade(theme.palette.common.white, 0.15),
-    boxShadow: "0 3px 5px 2px rgba(255, 105, 135, .3)",
-    "&:hover": {
-      backgroundColor: fade(theme.palette.common.white, 0.25)
-    },
-    marginRight: theme.spacing(2),
-    marginLeft: 0,
-    width: "100%",
-    [theme.breakpoints.up("md")]: {
-      marginLeft: theme.spacing(3),
-      width: "auto"
-    }
-  },
-  searchIcon: {
-    width: theme.spacing(7),
-    height: "100%",
-    position: "absolute",
-    pointerEvents: "none",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center"
-  },
-
-  btnSearch: {
-    color: theme.palette.common.white,
-    backgroundColor: "#FF5A60",
-    "&:hover": {
-      backgroundColor: "#FF787D"
-    },
-    border: 0,
-    borderRadius: 3,
-    boxShadow: "0 3px 5px 2px rgba(255, 105, 135, .3)",
-    color: "white",
-    height: 48,
-    padding: "0 30px"
-  },
-
-  inputRoot: {
-    color: "inherit"
-  },
-  inputInput: {
-    padding: theme.spacing(1, 1, 1, 7),
-    transition: theme.transitions.create("width"),
-    width: "100%",
-    [theme.breakpoints.up("md")]: {
-      width: 500
-    }
   },
 
   //CSS Travel
@@ -197,9 +128,10 @@ const useStyles = makeStyles(theme => ({
   },
 
   //CSS top-rate card
-  cardGrid: {
-    paddingTop: theme.spacing(4),
-    paddingBottom: theme.spacing(4)
+  cardContainer: {
+    paddingTop: theme.spacing(1),
+    paddingBottom: theme.spacing(1),
+    overflow: "auto"
   },
   card: {
     height: "100%",
@@ -212,8 +144,104 @@ const useStyles = makeStyles(theme => ({
   },
   cardContent: {
     flexGrow: 0
+  },
+  cardGrid: {
+    display: "flex"
+    //flexDirection: "column"
+  },
+  containerFlex: {
+    display: "flex",
+    flexDirection: "row",
+    marginTop: 130
+  },
+  cardEnd: {
+    flexDirection: "column",
+    justifyContent: "flex-end"
   }
 }));
+
+const cards = [
+  {
+    id: 1,
+    image: require("./images/top-rate-hotel/Jumeirah_Dar_Al_Masyaf.jpg"),
+    place: "Dubai",
+    title: "Jumeirah Dar Al Masyaf Hotel",
+    price: "$850/night",
+    rating: 4.9,
+    amenities: "wifi, heating, kitchen"
+  },
+  {
+    id: 2,
+    image: require("./images/top-rate-hotel/Hotel_Fasano_Rio_de_Janeiro.jpg"),
+    place: "Brazil",
+    title: "Fasano Rio de Janeiro Hotel",
+    price: "$270/night",
+    rating: 4.5,
+    amenities: "wifi, kitchen"
+  },
+  {
+    id: 3,
+    image: require("./images/top-rate-hotel/Fogo_Island_Inn.jpg"),
+    place: "Canada",
+    title: "Fogo Island Inn",
+    price: "$1,530/night",
+    rating: 4.8,
+    amenities: "wifi, heating, kitchen"
+  },
+  {
+    id: 4,
+    image: require("./images/top-rate-hotel/Inkaterra_La_Casona.jpg"),
+    place: "Peru",
+    title: "Inkaterra La Casona",
+    price: "$311/night",
+    rating: 4.6,
+    amenities: "wifi, heating"
+  },
+  {
+    id: 5,
+    image: require("./images/top-rate-hotel/Inkaterra_La_Casona.jpg"),
+    place: "Peru",
+    title: "Inkaterra La Casona",
+    price: "$311/night",
+    rating: 4.7,
+    amenities: "wifi"
+  },
+  {
+    id: 6,
+    image: require("./images/top-rate-hotel/Inkaterra_La_Casona.jpg"),
+    place: "Peru",
+    title: "Inkaterra La Casona",
+    price: "$311/night"
+  },
+  {
+    id: 7,
+    image: require("./images/top-rate-hotel/Inkaterra_La_Casona.jpg"),
+    place: "Peru",
+    title: "Inkaterra La Casona",
+    price: "$311/night"
+  },
+  {
+    id: 8,
+    image: require("./images/top-rate-hotel/Inkaterra_La_Casona.jpg"),
+    place: "Peru",
+    title: "Inkaterra La Casona",
+    price: "$311/night"
+  },
+  {
+    id: 9,
+    image: require("./images/top-rate-hotel/Inkaterra_La_Casona.jpg"),
+    place: "Peru",
+    title: "Inkaterra La Casona",
+    price: "$311/night"
+  },
+  {
+    id: 10,
+    image: require("./images/top-rate-hotel/Inkaterra_La_Casona.jpg"),
+    place: "Peru",
+    title: "Inkaterra La Casona",
+    price: "$311/night"
+  }
+];
 
 function Searchpage() {
   //   state = {
@@ -222,106 +250,93 @@ function Searchpage() {
   //     zoom: Number
   //   };
 
-  const [lat, setLat] = React.useState(51.505);
-  const [lng, setLng] = React.useState(-0.09);
-  const [zoom, setZoom] = React.useState(13);
+  const [lat] = React.useState(51.505);
+  const [lng] = React.useState(-0.09);
+  const [zoom] = React.useState(13);
 
   const position = [lat, lng];
   const classes = useStyles();
   return (
     <React.Fragment>
       <CssBaseline />
-      <AppBar
-        position="sticky"
-        color="default"
-        elevation={0}
-        className={classes.appBar}
-      >
-        {/* Header AppBar */}
-        <AppBar
-          position="relative"
-          color="default"
-          elevation={0}
-          className={classes.appBar}
-        >
-          <Toolbar className={classes.toolbar}>
-            <Typography
-              variant="h3"
-              color="inherit"
-              noWrap
-              className={classes.toolbarTitle}
-            >
-              HoGo
-            </Typography>
-            <div className={classes.search}>
-              <div className={classes.searchIcon}>
-                <SearchIcon />
-              </div>
-              <InputBase
-                placeholder="Search…"
-                classes={{
-                  root: classes.inputRoot,
-                  input: classes.inputInput
-                }}
-                inputProps={{ "aria-label": "search" }}
-              />
-            </div>
-            <Button variant="contained" className={classes.btnSearch}>
-              Search
-            </Button>
-            <div className={classes.button}>
-              <Button
-                variant="button"
-                color="textPrimary"
-                href="#"
-                className={classes.link}
-              >
-                Become a host
-              </Button>
-              <Button
-                variant="button"
-                color="textPrimary"
-                href="#"
-                className={classes.link}
-              >
-                Help
-              </Button>
-              <SignUpModal />
-              <LoginModal />
-            </div>
-          </Toolbar>
-        </AppBar>
-        {/* End Header AppBar */}
-
-        {/* Search Option Appbar */}
-        <AppBar
-          position="relative"
-          color="default"
-          elevation={0}
-          className={classes.appBar}
-        >
-          <Toolbar className={classes.toolbar}>
-            <DatesPopover />
-            <GuestPopover />
-            <TypeOfPlacePopover />
-            <PricePopover />
-            <MoreFiltersModal />
-          </Toolbar>
-        </AppBar>
-        {/* End Search Option Appbar */}
+      {/* Header & Search Options AppBar */}
+      <AppBar position="fixed" color="default" elevation={0} className="appbar">
+        <SearchAppbar />
+        <SearchOptionsAppbar />
       </AppBar>
 
-      <Map className="map" center={position} zoom={zoom}>
-        <TileLayer
-          attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-        />
-        <Marker position={position}>
-          <Popup>
-            A pretty CSS3 popup. <br /> Easily customizable.
-          </Popup>
-        </Marker>
-      </Map>
+      <Grid className={classes.containerFlex}>
+        <Container className={classes.cardContainer} maxWidth="lg">
+          <Grid className={classes.cardGrid} container spacing={1}>
+            {cards.map(card => (
+              <Grid item key={card.id} md={12}>
+                <Card className={classes.card}>
+                  <CardActionArea>
+                    <Grid container spacing={1} direction="row">
+                      <Grid item xs={4}>
+                        <CardMedia
+                          variant="square"
+                          className={classes.cardMedia}
+                          image={card.image}
+                          title="Image title"
+                        />
+                      </Grid>
+                      <Grid item xs={6}>
+                        <CardContent className={classes.cardContent}>
+                          <Typography gutterBottom variant="h5" component="h2">
+                            {card.title}
+                          </Typography>
+                          <Typography style={{ color: grey[500] }}>
+                            {card.amenities}
+                          </Typography>
+                        </CardContent>
+                      </Grid>
+                      <Grid
+                        container
+                        justify="center"
+                        direction="column"
+                        alignItems="center"
+                        xs={2}
+                      >
+                        <Grid item xs={8}>
+                          <StarIcon
+                            fontSize="small"
+                            style={{ color: "#FF5A60" }}
+                          ></StarIcon>
+                          <Typography
+                            fontSize="small"
+                            style={{ height: 25, width: 25 }}
+                          >
+                            {card.rating}
+                          </Typography>
+                        </Grid>
+                        <Grid item>
+                          <Typography>{card.price}</Typography>
+                        </Grid>
+                      </Grid>
+                    </Grid>
+                  </CardActionArea>
+                </Card>
+              </Grid>
+            ))}
+          </Grid>
+        </Container>
+
+        {/* Search map (must have internet)*/}
+        <Grid md={12}>
+          <Map className="map" center={position} zoom={zoom}>
+            <TileLayer
+              attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            />
+            <Marker position={position}>
+              <Popup>
+                A pretty CSS3 popup. <br /> Easily customizable.
+              </Popup>
+            </Marker>
+          </Map>
+        </Grid>
+      </Grid>
     </React.Fragment>
   );
 }

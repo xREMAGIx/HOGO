@@ -8,7 +8,17 @@ body {
   height: 100%;
 }
 
+.container {
+  display: flex;
+  flex-direction: row;
+}
+
 .map {
-  height: 82%;
-  width: 50%;
+  /* position: sticky; */
+  margin-left: auto;
+  height: 610px;
+  width: 100%;
+  margin: 0px;
+  top: 130px;
+  position: fixed;
 }

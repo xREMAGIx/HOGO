@@ -9,23 +9,15 @@ import CardMedia from "@material-ui/core/CardMedia";
 
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Grid from "@material-ui/core/Grid";
-
-import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
-import { fade, makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
-import SearchIcon from "@material-ui/icons/Search";
-import InputBase from "@material-ui/core/InputBase";
+
 import ButtonBase from "@material-ui/core/ButtonBase";
 
-import SignUpModal from "./modals/SignUpModal";
-import LoginModal from "./modals/LoginModal";
-import MoreFiltersModal from "./modals/MoreFiltersModal";
+import SearchAppbar from "./appbars/SearchAppbar";
+import SearchOptionsAppbar from "./appbars/SearchOptionsAppbar";
 
-import PricePopover from "./popovers/PricePopover";
-import TypeOfPlacePopover from "./popovers/TypeOfPlacePopover";
-import GuestPopover from "./popovers/GuestPopover";
-import DatesPopover from "./popovers/DatesPopover";
 import { CardActionArea } from "@material-ui/core";
 
 const useStyles = makeStyles(theme => ({
@@ -40,10 +32,6 @@ const useStyles = makeStyles(theme => ({
     li: {
       listStyle: "none"
     }
-  },
-  appBar: {
-    backgroundColor: theme.palette.common.white,
-    borderBottom: `1px solid ${theme.palette.divider}`
   },
   toolbar: {
     flexWrap: "wrap"
@@ -60,63 +48,6 @@ const useStyles = makeStyles(theme => ({
 
   button: {
     marginLeft: "auto"
-  },
-  btnSearchOptions: {
-    margin: theme.spacing(1)
-  },
-  input: {
-    display: "none"
-  },
-  search: {
-    position: "relative",
-    borderRadius: theme.shape.borderRadius,
-    backgroundColor: fade(theme.palette.common.white, 0.15),
-    boxShadow: "0 3px 5px 2px rgba(255, 105, 135, .3)",
-    "&:hover": {
-      backgroundColor: fade(theme.palette.common.white, 0.25)
-    },
-    marginRight: theme.spacing(2),
-    marginLeft: 0,
-    width: "100%",
-    [theme.breakpoints.up("md")]: {
-      marginLeft: theme.spacing(3),
-      width: "auto"
-    }
-  },
-  searchIcon: {
-    width: theme.spacing(7),
-    height: "100%",
-    position: "absolute",
-    pointerEvents: "none",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center"
-  },
-
-  btnSearch: {
-    color: theme.palette.common.white,
-    backgroundColor: "#FF5A60",
-    "&:hover": {
-      backgroundColor: "#FF787D"
-    },
-    border: 0,
-    borderRadius: 3,
-    boxShadow: "0 3px 5px 2px rgba(255, 105, 135, .3)",
-    color: "white",
-    height: 48,
-    padding: "0 30px"
-  },
-
-  inputRoot: {
-    color: "inherit"
-  },
-  inputInput: {
-    padding: theme.spacing(1, 1, 1, 7),
-    transition: theme.transitions.create("width"),
-    width: "100%",
-    [theme.breakpoints.up("md")]: {
-      width: 500
-    }
   },
 
   //CSS Travel
@@ -283,82 +214,10 @@ export default function Homepage() {
         className={classes.appBar}
       >
         {/* Header AppBar */}
-        <AppBar
-          position="relative"
-          color="default"
-          elevation={0}
-          className={classes.appBar}
-        >
-          <Toolbar className={classes.toolbar}>
-            <Typography
-              variant="h3"
-              color="inherit"
-              noWrap
-              className={classes.toolbarTitle}
-              href="/"
-            >
-              HoGo
-            </Typography>
-            <div className={classes.search}>
-              <div className={classes.searchIcon}>
-                <SearchIcon />
-              </div>
-              <InputBase
-                placeholder="Search…"
-                classes={{
-                  root: classes.inputRoot,
-                  input: classes.inputInput
-                }}
-                inputProps={{ "aria-label": "search" }}
-              />
-            </div>
-            <Button
-              variant="contained"
-              className={classes.btnSearch}
-              href="/search"
-            >
-              Search
-            </Button>
-            <div className={classes.button}>
-              <Button
-                variant="button"
-                color="textPrimary"
-                href="#"
-                className={classes.link}
-              >
-                Become a host
-              </Button>
-              <Button
-                variant="button"
-                color="textPrimary"
-                href="#"
-                className={classes.link}
-              >
-                Help
-              </Button>
-              <SignUpModal />
-              <LoginModal />
-            </div>
-          </Toolbar>
-        </AppBar>
-        {/* End Header AppBar */}
+        <SearchAppbar />
 
         {/* Search Option Appbar */}
-        <AppBar
-          position="relative"
-          color="default"
-          elevation={0}
-          className={classes.appBar}
-        >
-          <Toolbar className={classes.toolbar}>
-            <DatesPopover />
-            <GuestPopover />
-            <TypeOfPlacePopover />
-            <PricePopover />
-            <MoreFiltersModal />
-          </Toolbar>
-        </AppBar>
-        {/* End Search Option Appbar */}
+        <SearchOptionsAppbar />
       </AppBar>
 
       {/* Travel section */}
@@ -437,14 +296,6 @@ export default function Homepage() {
                     <Typography>{card.price}</Typography>
                   </CardContent>
                 </CardActionArea>
-                <CardActions>
-                  <Button size="small" color="primary">
-                    View
-                  </Button>
-                  <Button size="small" color="primary">
-                    Favorite
-                  </Button>
-                </CardActions>
               </Card>
             </Grid>
           ))}
