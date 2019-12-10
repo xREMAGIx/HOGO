@@ -22,3 +22,9 @@ body {
   top: 130px;
   position: fixed;
 }
+
+.mini {
+  height: 300px;
+  width: 50vw;
+  margin: auto;
+}
