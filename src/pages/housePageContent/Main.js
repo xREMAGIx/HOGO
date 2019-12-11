@@ -21,9 +21,9 @@ import Rating from "@material-ui/lab/Rating";
 import { Badge } from "@material-ui/core";
 //import { makeJSDateObject } from "../../../utils/helpers";
 
-import "./Map.css";
+import "../Map.css";
 
-import Markdown from "./Markdown.js";
+import Markdown from "../Markdown.js";
 
 const useStyles = makeStyles(theme => ({
   markdown: {

@@ -6,7 +6,6 @@ import Typography from "@material-ui/core/Typography";
 import { fade, makeStyles, withStyles } from "@material-ui/core/styles";
 
 import SearchIcon from "@material-ui/icons/Search";
-import InputBase from "@material-ui/core/InputBase";
 import TextField from "@material-ui/core/TextField";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 

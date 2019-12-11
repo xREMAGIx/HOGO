@@ -1,41 +1,23 @@
-// import React from "react";
-// import PropTypes from "prop-types";
-// import { makeStyles } from "@material-ui/core/styles";
-// import Grid from "@material-ui/core/Grid";
-// import Paper from "@material-ui/core/Paper";
-// import Typography from "@material-ui/core/Typography";
-// import Link from "@material-ui/core/Link";
-
 import "date-fns";
 import React from "react";
 import Grid from "@material-ui/core/Grid";
 import DateFnsUtils from "@date-io/date-fns";
 import {
   MuiPickersUtilsProvider,
-  KeyboardTimePicker,
   KeyboardDatePicker
 } from "@material-ui/pickers";
 
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
-import TextField from "@material-ui/core/TextField";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Checkbox from "@material-ui/core/Checkbox";
-import Link from "@material-ui/core/Link";
-import Box from "@material-ui/core/Box";
 import FlightTakeoffIcon from "@material-ui/icons/FlightTakeoff";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import StarIcon from "@material-ui/icons/Star";
 import ArrowRightAltIcon from "@material-ui/icons/ArrowRightAlt";
 import InputLabel from "@material-ui/core/InputLabel";
-import FormHelperText from "@material-ui/core/FormHelperText";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
-import NativeSelect from "@material-ui/core/NativeSelect";
-
-import Container from "@material-ui/core/Container";
 
 const useStyles = makeStyles(theme => ({
   sidebarAboutBox: {
@@ -63,8 +45,11 @@ const useStyles = makeStyles(theme => ({
   },
   submit: {
     margin: theme.spacing(3, 0, 2),
+    color: theme.palette.common.white,
     backgroundColor: "#FF5A60",
-    color: theme.palette.getContrastText("#FF5A60")
+    "&:hover": {
+      backgroundColor: "#FF787D"
+    }
   },
   gridRoot: {
     alignSelf: "flex-start",
@@ -130,7 +115,7 @@ export default function BookingForm() {
               <StarIcon
                 fontSize="small"
                 style={{ color: "#FF5A60" }}
-              ></StarIcon>{" "}
+              ></StarIcon>
             </Grid>
             <Grid item xs={11}>
               <Typography component="h5" variant="subtitle1">
@@ -184,20 +169,14 @@ export default function BookingForm() {
           <Grid container justify="space-around">
             <Grid item>
               <FormControl variant="outlined" className={classes.formControl}>
-                <InputLabel
-                  ref={inputLabel}
-                  htmlFor="outlined-age-native-simple"
-                >
-                  Adults
-                </InputLabel>
+                <InputLabel ref={inputLabel}>Adults</InputLabel>
                 <Select
                   native
-                  value={state.age}
-                  onChange={handleChange("age")}
+                  value={state.adults}
+                  onChange={handleChange("adults")}
                   labelWidth={labelWidth}
                   inputProps={{
-                    name: "age",
-                    id: "outlined-age-native-simple"
+                    name: "adults"
                   }}
                 >
                   <option value={0}>None</option>
@@ -211,20 +190,14 @@ export default function BookingForm() {
             </Grid>
             <Grid item>
               <FormControl variant="outlined" className={classes.formControl}>
-                <InputLabel
-                  ref={inputLabel}
-                  htmlFor="outlined-age-native-simple"
-                >
-                  Children
-                </InputLabel>
+                <InputLabel ref={inputLabel}>Children</InputLabel>
                 <Select
                   native
-                  value={state.age}
-                  onChange={handleChange("age")}
+                  value={state.children}
+                  onChange={handleChange("children")}
                   labelWidth={labelWidth}
                   inputProps={{
-                    name: "age",
-                    id: "outlined-age-native-simple"
+                    name: "children"
                   }}
                 >
                   <option value={0}>None</option>
@@ -239,20 +212,14 @@ export default function BookingForm() {
 
             <Grid item>
               <FormControl variant="outlined" className={classes.formControl}>
-                <InputLabel
-                  ref={inputLabel}
-                  htmlFor="outlined-age-native-simple"
-                >
-                  Infrants
-                </InputLabel>
+                <InputLabel ref={inputLabel}>Infrants</InputLabel>
                 <Select
                   native
-                  value={state.age}
-                  onChange={handleChange("age")}
+                  value={state.infrants}
+                  onChange={handleChange("infrants")}
                   labelWidth={labelWidth}
                   inputProps={{
-                    name: "age",
-                    id: "outlined-age-native-simple"
+                    name: "infrants"
                   }}
                 >
                   <option value={0}>None</option>
@@ -270,6 +237,7 @@ export default function BookingForm() {
             fullWidth
             variant="contained"
             className={classes.submit}
+            href="/booking"
           >
             Booking
           </Button>

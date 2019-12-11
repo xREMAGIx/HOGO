@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import Homepage from "./pages/Homepage.js";
 import Searchpage from "./pages/Searchpage.js";
 import Housepage from "./pages/Housepage.js";
+import Bookingpage from "./pages/Bookingpage.js";
 
 class App extends Component {
   render() {
@@ -18,6 +19,9 @@ class App extends Component {
         </Route>
         <Route exact path="/house">
           <Housepage />
+        </Route>
+        <Route exact path="/booking">
+          <Bookingpage />
         </Route>
       </Router>
     );
