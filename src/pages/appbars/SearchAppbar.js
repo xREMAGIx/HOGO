@@ -4,10 +4,21 @@ import Button from "@material-ui/core/Button";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import { fade, makeStyles, withStyles } from "@material-ui/core/styles";
+import Hidden from "@material-ui/core/Hidden";
 
 import SearchIcon from "@material-ui/icons/Search";
 import TextField from "@material-ui/core/TextField";
 import Autocomplete from "@material-ui/lab/Autocomplete";
+
+import Collapse from "@material-ui/core/Collapse";
+
+import Dialog from "@material-ui/core/Dialog";
+import ListItemText from "@material-ui/core/ListItemText";
+import ListItem from "@material-ui/core/ListItem";
+import List from "@material-ui/core/List";
+import Divider from "@material-ui/core/Divider";
+import CloseIcon from "@material-ui/icons/Close";
+import IconButton from "@material-ui/core/IconButton";
 
 import SignUpModal from "../modals/SignUpModal";
 import LoginModal from "../modals/LoginModal";
@@ -62,9 +73,13 @@ const useStyles = makeStyles(theme => ({
     marginRight: theme.spacing(2),
     marginLeft: 0,
     width: "100%",
-    [theme.breakpoints.up("md")]: {
+    [theme.breakpoints.up("sm")]: {
       marginLeft: theme.spacing(3),
-      width: "auto"
+      width: "40vw"
+    },
+    [theme.breakpoints.down("sm")]: {
+      marginLeft: theme.spacing(3),
+      width: "50vw"
     }
   },
   searchIcon: {
@@ -87,7 +102,11 @@ const useStyles = makeStyles(theme => ({
     borderRadius: 3,
     boxShadow: "0 3px 5px 2px rgba(255, 105, 135, .3)",
     height: 48,
-    padding: "0 30px"
+    padding: "0 30px",
+    [theme.breakpoints.down("sm")]: {
+      padding: "0 0px",
+      height: 40
+    }
   },
 
   inputRoot: {
@@ -108,18 +127,26 @@ const useStyles = makeStyles(theme => ({
       marginRight: 10,
       fontSize: 18
     }
+  },
+  miniAppBar: {
+    position: "relative",
+    backgroundColor: "#FF5A60"
+  },
+  title: {
+    marginLeft: theme.spacing(2),
+    flex: 1
   }
 }));
 
 const CssTextField = withStyles({
-  root: {
-    "& .MuiInput-underline:before": {
-      borderBottomColor: "white"
-    },
-    "& .MuiInput-underline:after": {
-      borderBottomColor: "white"
-    }
-  }
+  // root: {
+  //   "& .MuiInput-underline:before": {
+  //     borderBottomColor: "white"
+  //   },
+  //   "& .MuiInput-underline:after": {
+  //     borderBottomColor: "white"
+  //   }
+  // }
 })(TextField);
 
 const countries = [
@@ -391,8 +418,27 @@ function countryToFlag(isoCode) {
     : isoCode;
 }
 
+const Transition = React.forwardRef(function Transition(props, ref) {
+  return <Collapse ref={ref} {...props} />;
+});
+
+function ListItemLink(props) {
+  return <ListItem button component="a" {...props} />;
+}
+
 export default function SearchAppbar() {
   const classes = useStyles();
+
+  const [open, setOpen] = React.useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   return (
     <React.Fragment>
       {/* Header AppBar */}
@@ -403,31 +449,32 @@ export default function SearchAppbar() {
         className={classes.appBar}
       >
         <Toolbar className={classes.toolbar}>
-          <Typography
-            variant="h3"
+          {/* <Typography
+            variant="h4"
             color="inherit"
             noWrap
             className={classes.toolbarTitle}
             href="/"
           >
             HoGo
-          </Typography>
+          </Typography> */}
+
+          <Hidden smDown>
+            <Button href="/">Hogo</Button>
+          </Hidden>
+
+          <Hidden smUp>
+            <Button onClick={handleClickOpen}>Hogo</Button>
+          </Hidden>
+
           <div className={classes.search}>
             <div className={classes.searchIcon}>
               <SearchIcon />
             </div>
-            {/* <InputBase
-              placeholder="Search…"
-              classes={{
-                root: classes.inputRoot,
-                input: classes.inputInput
-              }}
-              inputProps={{ "aria-label": "search" }}
-            /> */}
             <Autocomplete
               freeSolo
               id="country-select-demo"
-              style={{ width: 400 }}
+              style={{ width: "auto" }}
               options={countries}
               classes={{
                 option: classes.option,
@@ -456,36 +503,99 @@ export default function SearchAppbar() {
               )}
             />
           </div>
-          <Button
-            variant="contained"
-            className={classes.btnSearch}
-            href="/search"
-          >
-            Search
-          </Button>
-          <div className={classes.button}>
+
+          {/* Button search for PC */}
+          <Hidden smDown>
             <Button
-              variant="button"
-              color="textPrimary"
-              href="#"
-              className={classes.link}
+              variant="contained"
+              className={classes.btnSearch}
+              href="/search"
             >
-              Become a host
+              Search
             </Button>
+          </Hidden>
+
+          {/* Button search for phone */}
+          <Hidden mdUp>
             <Button
-              variant="button"
-              color="textPrimary"
-              href="#"
-              className={classes.link}
+              variant="contained"
+              className={classes.btnSearch}
+              href="/search"
             >
-              Help
+              <SearchIcon />
             </Button>
-            <SignUpModal />
-            <LoginModal />
-          </div>
+          </Hidden>
+
+          {/* Menu button for PC */}
+          <Hidden mdDown>
+            <div className={classes.button}>
+              <Button
+                variant="button"
+                color="textPrimary"
+                href="#"
+                className={classes.link}
+              >
+                Become a host
+              </Button>
+              <Button
+                variant="button"
+                color="textPrimary"
+                href="#"
+                className={classes.link}
+              >
+                Help
+              </Button>
+              <SignUpModal />
+              <LoginModal />
+            </div>
+          </Hidden>
         </Toolbar>
       </AppBar>
       {/* End Header AppBar */}
+
+      <Dialog
+        fullScreen
+        open={open}
+        onClose={handleClose}
+        TransitionComponent={Transition}
+      >
+        <AppBar className={classes.miniAppBar}>
+          <Toolbar>
+            <IconButton
+              edge="start"
+              color="inherit"
+              onClick={handleClose}
+              aria-label="close"
+            >
+              <CloseIcon />
+            </IconButton>
+            <Typography variant="h6" className={classes.title}>
+              Hogo Menu
+            </Typography>
+          </Toolbar>
+        </AppBar>
+        <List>
+          <ListItem button>
+            <ListItemLink href="/">
+              <ListItemText primary="Home" />
+            </ListItemLink>
+          </ListItem>
+          <Divider />
+          <ListItem button>
+            <ListItemText primary="Become a host" />
+          </ListItem>
+          <ListItem button>
+            <ListItemText primary="Help" />
+          </ListItem>
+          <ListItem button>
+            <ListItemText primary="Sign up" />
+            <SignUpModal />
+          </ListItem>
+          <ListItem button>
+            <ListItemText primary="Login" />
+          </ListItem>
+        </List>
+      </Dialog>
     </React.Fragment>
   );
 }

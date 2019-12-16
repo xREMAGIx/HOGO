@@ -52,13 +52,18 @@ const useStyles = makeStyles(theme => ({
   imgTravelRoot: {
     display: "flex",
     flexWrap: "wrap",
+    justifyContent: "center",
     minWidth: 200,
     width: "100%"
   },
   image: {
-    margin: theme.spacing(0, 0.7, 0, 0.7),
+    margin: theme.spacing(0, 0.7, 1.4, 0.7),
     position: "relative",
     height: 200,
+    [theme.breakpoints.down("md")]: {
+      width: "30% !important",
+      height: 150
+    },
     [theme.breakpoints.down("xs")]: {
       width: "100% !important", // Overrides inline-style
       height: 100

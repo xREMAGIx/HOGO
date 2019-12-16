@@ -9,8 +9,16 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import Grid from "@material-ui/core/Grid";
 import Box from "@material-ui/core/Box";
 import Typography from "@material-ui/core/Typography";
-import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
+import Hidden from "@material-ui/core/Hidden";
+import { makeStyles, useTheme } from "@material-ui/core/styles";
+import MobileStepper from "@material-ui/core/MobileStepper";
+import Paper from "@material-ui/core/Paper";
+import KeyboardArrowLeft from "@material-ui/icons/KeyboardArrowLeft";
+import KeyboardArrowRight from "@material-ui/icons/KeyboardArrowRight";
+import SwipeableViews from "react-swipeable-views";
+import { autoPlay } from "react-swipeable-views-utils";
+import IconButton from "@material-ui/core/IconButton";
 
 import GridList from "@material-ui/core/GridList";
 import GridListTile from "@material-ui/core/GridListTile";
@@ -19,7 +27,6 @@ import ButtonBase from "@material-ui/core/ButtonBase";
 
 import ShareIcon from "@material-ui/icons/Share";
 import FavoriteIcon from "@material-ui/icons/Favorite";
-import PhotoLibraryIcon from "@material-ui/icons/PhotoLibrary";
 
 import SearchAppbar from "./appbars/SearchAppbar";
 
@@ -27,6 +34,8 @@ import { CardActionArea } from "@material-ui/core";
 
 import Main from "./housePageContent/Main.js";
 import BookingForm from "./housePageContent/BookingForm.js";
+import ImageCollectionModal from "./modals/ImageCollectionModal.js";
+import { callbackify } from "util";
 
 const useStyles = makeStyles(theme => ({
   "@global": {
@@ -179,8 +188,59 @@ const useStyles = makeStyles(theme => ({
   },
   mainGrid: {
     marginTop: theme.spacing(3)
+  },
+  phoneRoot: {
+    maxWidth: "100vw",
+    flexGrow: 1
+  },
+  header: {
+    display: "flex",
+    alignItems: "center",
+    height: 50,
+    paddingLeft: theme.spacing(4),
+    backgroundColor: theme.palette.background.default
+  },
+  img: {
+    height: "50vh",
+    display: "block",
+    maxWidth: "100vw",
+    overflow: "hidden",
+    width: "100vw"
+  },
+  iconBtn: {
+    color: "white"
   }
 }));
+
+const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
+
+const tutorialSteps = [
+  {
+    label: "San Francisco – Oakland Bay Bridge, United States",
+    imgPath:
+      "https://images.unsplash.com/photo-1537944434965-cf4679d1a598?auto=format&fit=crop&w=400&h=250&q=60"
+  },
+  {
+    label: "Bird",
+    imgPath:
+      "https://images.unsplash.com/photo-1538032746644-0212e812a9e7?auto=format&fit=crop&w=400&h=250&q=60"
+  },
+  {
+    label: "Bali, Indonesia",
+    imgPath:
+      "https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=400&h=250&q=80"
+  },
+  {
+    label: "NeONBRAND Digital Marketing, Las Vegas, United States",
+    imgPath:
+      "https://images.unsplash.com/photo-1518732714860-b62714ce0c59?auto=format&fit=crop&w=400&h=250&q=60"
+  },
+  {
+    label: "Goč, Serbia",
+    imgPath:
+      "https://images.unsplash.com/photo-1512341689857-198e7e2f3ca8?auto=format&fit=crop&w=400&h=250&q=60"
+  }
+];
 
 const images = [
   {
@@ -243,35 +303,35 @@ const cards = [
 
 const tileData = [
   {
-    //img: require("./images/top-rate-hotel/Jumeirah_Dar_Al_Masyaf.jpg"),
+    id: 1,
     url: "./images/newyork.jpg",
     title: "Image",
     author: "author",
     featured: true
   },
   {
-    //img: require("./images/top-rate-hotel/Jumeirah_Dar_Al_Masyaf.jpg"),
+    id: 2,
     url: "./images/newyork.jpg",
     title: "Image",
     author: "author",
     featured: false
   },
   {
-    //img: require("./images/top-rate-hotel/Jumeirah_Dar_Al_Masyaf.jpg"),
+    id: 3,
     url: "./images/newyork.jpg",
     title: "Image",
     author: "author",
     featured: false
   },
   {
-    //img: require("./images/top-rate-hotel/Jumeirah_Dar_Al_Masyaf.jpg"),
+    id: 4,
     url: "./images/newyork.jpg",
     title: "Image",
     author: "author",
     featured: false
   },
   {
-    //img: require("./images/top-rate-hotel/Jumeirah_Dar_Al_Masyaf.jpg"),
+    id: 5,
     url: "./images/newyork.jpg",
     title: "Image",
     author: "author",
@@ -281,6 +341,22 @@ const tileData = [
 
 export default function Homepage() {
   const classes = useStyles();
+  const theme = useTheme();
+
+  const [activeStep, setActiveStep] = React.useState(0);
+  const maxSteps = tutorialSteps.length;
+
+  const handleNext = () => {
+    setActiveStep(prevActiveStep => prevActiveStep + 1);
+  };
+
+  const handleBack = () => {
+    setActiveStep(prevActiveStep => prevActiveStep - 1);
+  };
+
+  const handleStepChange = step => {
+    setActiveStep(step);
+  };
 
   return (
     <React.Fragment>
@@ -290,102 +366,183 @@ export default function Homepage() {
 
       {/* Image Grid List */}
       <Box position="relative">
-        <Box zIndex="modal">
-          <div className={classes.gridImageRoot}>
-            <GridList cellHeight={200} spacing={1} className={classes.gridList}>
-              {tileData.map(tile => (
-                <GridListTile
-                  key={tile.img}
-                  cols={tile.featured ? 2 : 1}
-                  rows={tile.featured ? 2 : 1}
-                >
-                  <ButtonBase
-                    focusRipple
-                    key={tile.title}
-                    className={classes.image}
-                    focusVisibleClassName={classes.focusVisible}
-                    style={{
-                      width: "100%",
-                      height: "100%"
-                    }}
+        {/* Image grid list for PC */}
+        <Hidden smDown>
+          <Box zIndex="mobile stepper">
+            <div className={classes.gridImageRoot}>
+              <GridList
+                cellHeight={200}
+                spacing={1}
+                className={classes.gridList}
+              >
+                {tileData.map(tile => (
+                  <GridListTile
+                    key={tile.id}
+                    cols={tile.featured ? 2 : 1}
+                    rows={tile.featured ? 2 : 1}
                   >
-                    <span
-                      className={classes.imageSrc}
+                    <ButtonBase
+                      focusRipple
+                      key={tile.title}
+                      className={classes.image}
+                      focusVisibleClassName={classes.focusVisible}
                       style={{
-                        backgroundImage: `url(${tile.url})`
+                        width: "100%",
+                        height: "100%"
                       }}
-                    />
-                    <span className={classes.imageBackdrop} />
-                    <span className={classes.imageButton}></span>
-                  </ButtonBase>
-                  {/* <img src={tile.img} alt={tile.title} />
-                  <GridListTileBar
-                    title={tile.title}
-                    titlePosition="top"
-                    actionIcon={
-                      <IconButton
-                        aria-label={`star ${tile.title}`}
-                        className={classes.imageIcon}
-                      >
-                        <StarBorderIcon />
-                      </IconButton>
-                    }
-                    actionPosition="left"
-                    className={classes.titleBar}
-                  /> */}
-                </GridListTile>
-              ))}
-            </GridList>
-          </div>
-        </Box>
-        <Box
-          color="inherit"
-          position="absolute"
-          p={1}
-          width={250}
-          top={20}
-          right="3%"
-          zIndex="tooltip"
-          display="flex"
-          flexDirection="row"
-          justifyContent="space-around"
-        >
-          <Button
-            variant="contained"
-            startIcon={<ShareIcon />}
-            className={classes.btnImage}
-          >
-            Share
-          </Button>
-          <Button
-            variant="contained"
-            startIcon={<FavoriteIcon />}
-            className={classes.btnImage}
-          >
-            Save
-          </Button>
-        </Box>
+                    >
+                      <span
+                        className={classes.imageSrc}
+                        style={{
+                          backgroundImage: `url(${tile.url})`
+                        }}
+                      />
+                      <span className={classes.imageBackdrop} />
+                      <span className={classes.imageButton}></span>
+                    </ButtonBase>
+                  </GridListTile>
+                ))}
+              </GridList>
+            </div>
+          </Box>
+        </Hidden>
 
-        <Box
-          color="inherit"
-          position="absolute"
-          p={1}
-          width={250}
-          bottom={80}
-          right="3%"
-          zIndex="tooltip"
-          display="flex"
-          flexDirection="row"
-          justifyContent="space-around"
-        >
-          <Button
+        {/* Image grid list for Phone*/}
+        <Hidden mdUp>
+          <div className={classes.phoneRoot}>
+            <Paper square elevation={0} className={classes.header}>
+              <Typography>{tutorialSteps[activeStep].label}</Typography>
+            </Paper>
+            <AutoPlaySwipeableViews
+              axis={theme.direction === "rtl" ? "x-reverse" : "x"}
+              index={activeStep}
+              onChangeIndex={handleStepChange}
+              enableMouseEvents
+            >
+              {tutorialSteps.map((step, index) => (
+                <div key={step.label}>
+                  {Math.abs(activeStep - index) <= 2 ? (
+                    <img
+                      className={classes.img}
+                      src={step.imgPath}
+                      alt={step.label}
+                    />
+                  ) : null}
+                </div>
+              ))}
+            </AutoPlaySwipeableViews>
+            <MobileStepper
+              variant="dots"
+              steps={maxSteps}
+              position="static"
+              activeStep={activeStep}
+              className={classes.phoneRoot}
+              nextButton={
+                <Button
+                  size="small"
+                  onClick={handleNext}
+                  disabled={activeStep === maxSteps - 1}
+                >
+                  Next
+                  {theme.direction === "rtl" ? (
+                    <KeyboardArrowLeft />
+                  ) : (
+                    <KeyboardArrowRight />
+                  )}
+                </Button>
+              }
+              backButton={
+                <Button
+                  size="small"
+                  onClick={handleBack}
+                  disabled={activeStep === 0}
+                >
+                  {theme.direction === "rtl" ? (
+                    <KeyboardArrowRight />
+                  ) : (
+                    <KeyboardArrowLeft />
+                  )}
+                  Back
+                </Button>
+              }
+            />
+          </div>
+        </Hidden>
+
+        {/* Buttons list come together with Image grid list for PC*/}
+        <Hidden smDown>
+          <Box
+            color="inherit"
+            position="absolute"
+            p={1}
+            width={250}
+            top={20}
+            right="3%"
+            zIndex="app bar"
+            display="flex"
+            flexDirection="row"
+            justifyContent="space-around"
+          >
+            <Button
+              variant="contained"
+              startIcon={<ShareIcon />}
+              className={classes.btnImage}
+            >
+              Share
+            </Button>
+            <Button
+              variant="contained"
+              startIcon={<FavoriteIcon />}
+              className={classes.btnImage}
+            >
+              Save
+            </Button>
+          </Box>
+          <Box
+            color="inherit"
+            position="absolute"
+            p={1}
+            width={250}
+            bottom={80}
+            right="3%"
+            zIndex="app bar"
+            display="flex"
+            flexDirection="row"
+            justifyContent="space-around"
+          >
+            {/* <Button
             variant="contained"
             startIcon={<PhotoLibraryIcon />}
             className={classes.btnImage}
           >
             View Photos
-          </Button>
-        </Box>
+          </Button> */}
+            <ImageCollectionModal />
+          </Box>
+        </Hidden>
+
+        {/* Buttons list come together with Image grid list for Phone*/}
+        <Hidden mdUp>
+          <Box
+            color="inherit"
+            position="absolute"
+            p={1}
+            width={100}
+            top={60}
+            right="3%"
+            zIndex="app bar"
+            display="flex"
+            flexDirection="row"
+            justifyContent="flex-end"
+          >
+            <IconButton className={classes.iconBtn}>
+              <ShareIcon fontSize="large" />
+            </IconButton>
+            <IconButton className={classes.iconBtn}>
+              <FavoriteIcon fontSize="large" />
+            </IconButton>
+          </Box>
+        </Hidden>
       </Box>
       {/* End Image Grid List */}
 
@@ -433,7 +590,7 @@ export default function Homepage() {
           ))}
         </Grid>
       </Container>
-      {/* End Top-rate Hotel section */}
+      {/* End Similar Hotel section */}
     </React.Fragment>
   );
 }

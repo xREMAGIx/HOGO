@@ -17,6 +17,9 @@ import DateFnsUtils from "@date-io/date-fns";
 import { MuiPickersUtilsProvider } from "@material-ui/pickers";
 import { DatePicker } from "@material-ui/pickers";
 import Rating from "@material-ui/lab/Rating";
+import Portal from "@material-ui/core/Portal";
+import Button from "@material-ui/core/Button";
+import Hidden from "@material-ui/core/Hidden";
 
 import { Badge } from "@material-ui/core";
 //import { makeJSDateObject } from "../../../utils/helpers";
@@ -36,6 +39,10 @@ const useStyles = makeStyles(theme => ({
   },
   reviewGrid: {
     marginTop: theme.spacing(5)
+  },
+  btn: {
+    textTransform: "none",
+    color: "#018F84"
   }
 }));
 
@@ -44,6 +51,47 @@ function getRandomNumber(min, max) {
 }
 
 const reviews = [
+  {
+    id: 1,
+    name: "Monica",
+    say:
+      "I had great experiences here! They treat me so well and I can also use their kitchen.",
+    star: 4
+  },
+  {
+    id: 2,
+    name: "Tara ",
+    say:
+      "The Shell house is so cute! We loved the 2 shells because we were travelling with 2 couples so it worked out perfectly.",
+    star: 5
+  },
+  {
+    id: 3,
+    name: "Monica",
+    say: "Absolutely beautiful!!!",
+    star: 5
+  },
+  {
+    id: 4,
+    name: "Monica",
+    say: "Absolutely beautiful!!!",
+    star: 5
+  },
+  {
+    id: 5,
+    name: "Monica",
+    say: "Absolutely beautiful!!!",
+    star: 5
+  },
+  {
+    id: 6,
+    name: "Monica",
+    say: "Absolutely beautiful!!!",
+    star: 5
+  }
+];
+
+const reviewsAddition = [
   {
     id: 1,
     name: "Monica",
@@ -78,6 +126,13 @@ export default function Main(props) {
 
   const [date, changeDate] = useState(new Date());
 
+  const [show, setShow] = React.useState(false);
+  const container = React.useRef(null);
+
+  const handleClick = () => {
+    setShow(!show);
+  };
+
   const [selectedDays, setSelectedDays] = useState([1, 2, 15]);
   const [selectedDate, handleDateChange] = useState(new Date());
 
@@ -94,7 +149,7 @@ export default function Main(props) {
   return (
     <React.Fragment>
       <Grid item xs={12} md={7} className={classes.grid}>
-        <Grid container spacing={10}>
+        <Grid container>
           <Grid item>
             <Typography variant="h3" gutterBottom>
               {title}
@@ -189,11 +244,11 @@ export default function Main(props) {
               attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
-            <Marker position={position}>
+            {/* <Marker position={position}>
               <Popup>
                 A pretty CSS3 popup. <br /> Easily customizable.
               </Popup>
-            </Marker>
+            </Marker> */}
           </Map>
         </Grid>
         {/* End the location content */}
@@ -250,36 +305,82 @@ export default function Main(props) {
           </Box>
         </Typography>
         <Grid>
-          {reviews.map(review => (
-            <Grid
-              key={review.id}
-              container
-              justify="flex-start"
-              className={classes.reviewGrid}
-            >
-              <Grid item xs={1}>
-                <Avatar sizes="large">
-                  <AccountCircleIcon />
-                </Avatar>
-              </Grid>
-              <Grid item xs={8}>
-                <Typography variant="body1">
-                  <Box fontWeight="fontWeightBold" m={1}>
-                    {review.name}
-                  </Box>
-                </Typography>
-                <Typography variant="body1">{review.say}</Typography>
-              </Grid>
-              <Grid item xs={3}>
-                <Box component="fieldset" mb={3} borderColor="transparent">
-                  <Rating name="read-only" value={review.star} readOnly />
-                </Box>
-              </Grid>
-            </Grid>
-          ))}
-          <Divider />
+          {reviews.map(
+            review =>
+              review.id < 4 && (
+                <Grid
+                  key={review.id}
+                  container
+                  justify="flex-start"
+                  className={classes.reviewGrid}
+                >
+                  <Grid item xs={1}>
+                    <Avatar sizes="large">
+                      <AccountCircleIcon />
+                    </Avatar>
+                  </Grid>
+                  <Grid item xs={8}>
+                    <Typography variant="body1">
+                      <Box fontWeight="fontWeightBold" m={1}>
+                        {review.name}
+                      </Box>
+                    </Typography>
+                    <Typography variant="body1">{review.say}</Typography>
+                  </Grid>
+                  <Grid item xs={3}>
+                    <Box component="fieldset" mb={3} borderColor="transparent">
+                      <Rating name="read-only" value={review.star} readOnly />
+                    </Box>
+                  </Grid>
+                </Grid>
+              )
+          )}
+
+          <div ref={container} />
         </Grid>
+        <Button className={classes.btn} onClick={handleClick}>
+          {show ? "Hide reviews ^" : "Show all reviews v"}
+        </Button>
+        {show ? (
+          <Portal container={container.current}>
+            {reviews.map(
+              review =>
+                review.id >= 4 && (
+                  <Grid
+                    key={review.id}
+                    container
+                    justify="flex-start"
+                    className={classes.reviewGrid}
+                  >
+                    <Grid item xs={1}>
+                      <Avatar sizes="large">
+                        <AccountCircleIcon />
+                      </Avatar>
+                    </Grid>
+                    <Grid item xs={8}>
+                      <Typography variant="body1">
+                        <Box fontWeight="fontWeightBold" m={1}>
+                          {review.name}
+                        </Box>
+                      </Typography>
+                      <Typography variant="body1">{review.say}</Typography>
+                    </Grid>
+                    <Grid item xs={3}>
+                      <Box
+                        component="fieldset"
+                        mb={3}
+                        borderColor="transparent"
+                      >
+                        <Rating name="read-only" value={review.star} readOnly />
+                      </Box>
+                    </Grid>
+                  </Grid>
+                )
+            )}
+          </Portal>
+        ) : null}
         {/* End Review contents */}
+        <Divider />
 
         {/* {posts.map(post => (
         <Markdown className={classes.markdown} key={post.substring(0, 40)}>
@@ -292,6 +393,5 @@ export default function Main(props) {
 }
 
 Main.propTypes = {
-  posts: PropTypes.array,
   title: PropTypes.string
 };

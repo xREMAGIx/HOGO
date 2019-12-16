@@ -5,7 +5,7 @@ import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
 
 import Button from "@material-ui/core/Button";
-
+import Hidden from "@material-ui/core/Hidden";
 import Avatar from "@material-ui/core/Avatar";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import TextField from "@material-ui/core/TextField";
@@ -65,14 +65,16 @@ export default function SignUpModal() {
 
   return (
     <React.Fragment>
-      <Button
-        variant="button"
-        color="textPrimary"
-        className={classes.link}
-        onClick={handleOpen}
-      >
-        Sign Up
-      </Button>
+      <Hidden mdDown>
+        <Button
+          variant="button"
+          color="textPrimary"
+          className={classes.link}
+          onClick={handleOpen}
+        >
+          Sign Up
+        </Button>
+      </Hidden>
 
       <Modal
         aria-labelledby="transition-modal-title"

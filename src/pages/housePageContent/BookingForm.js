@@ -97,7 +97,7 @@ export default function BookingForm() {
   };
 
   return (
-    <Grid xs={8} md={4} className={classes.gridRoot}>
+    <Grid xs={12} md={4} className={classes.gridRoot}>
       <CssBaseline />
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
@@ -123,7 +123,7 @@ export default function BookingForm() {
               </Typography>
             </Grid>
           </Grid>
-          <Grid container spacing={2} justify="center" alignItems="center">
+          <Grid container justify="center" alignItems="center">
             <MuiPickersUtilsProvider utils={DateFnsUtils}>
               <Grid item xs={5}>
                 <KeyboardDatePicker

@@ -7,6 +7,7 @@ import Slider from "@material-ui/core/Slider";
 import Paper from "@material-ui/core/Paper";
 import Box from "@material-ui/core/Box";
 import grey from "@material-ui/core/colors/grey";
+import Hidden from "@material-ui/core/Hidden";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -128,74 +129,80 @@ export default function PricePopover() {
 
   return (
     <React.Fragment>
-      <Button
-        className={classes.btnSearchOptions}
-        variant="outlined"
-        color="inherit"
-        aria-describedby={id}
-        onClick={handleClick}
-      >
-        Price
-      </Button>
-      <Popover
-        id={id}
-        open={open}
-        anchorEl={anchorEl}
-        onClose={handleClose}
-        anchorOrigin={{
-          vertical: "bottom",
-          horizontal: "center"
-        }}
-        transformOrigin={{
-          vertical: "top",
-          horizontal: "center"
-        }}
-      >
-        <Paper className={classes.margin}>
-          <Typography className={classes.typographyMargin} gutterBottom>
-            Price
-          </Typography>
-          <AirbnbSlider
-            min={10}
-            max={1000}
-            ThumbComponent={AirbnbThumbComponent}
-            getAriaLabel={index =>
-              index === 0 ? "Minimum price" : "Maximum price"
-            }
-            defaultValue={[10, 1000]}
-            value={value}
-            onChange={handleChange}
-          />
-          <Box
-            marginTop={3}
-            display="flex"
-            flexDirection="row"
-            justifyContent="space-between"
-            width={300}
-          >
+      <Hidden smDown>
+        <Button
+          className={classes.btnSearchOptions}
+          variant="outlined"
+          color="inherit"
+          aria-describedby={id}
+          onClick={handleClick}
+        >
+          Price
+        </Button>
+        <Popover
+          id={id}
+          open={open}
+          anchorEl={anchorEl}
+          onClose={handleClose}
+          anchorOrigin={{
+            vertical: "bottom",
+            horizontal: "center"
+          }}
+          transformOrigin={{
+            vertical: "top",
+            horizontal: "center"
+          }}
+        >
+          <Paper className={classes.margin}>
             <Typography className={classes.typographyMargin} gutterBottom>
-              Minimum : $ {value[0]}
+              Price
             </Typography>
-            <Typography className={classes.typographyMargin} gutterBottom>
-              Maximum : $ {value[1]}
-            </Typography>
-          </Box>
-          <Box
-            marginTop={5}
-            display="flex"
-            flexDirection="row"
-            justifyContent="space-between"
-            width={300}
-          >
-            <TextButton size="small" color="inherit" onClick={handleClearClick}>
-              Clear
-            </TextButton>
-            <ColorButton variant="contained" color="inherit">
-              Save
-            </ColorButton>
-          </Box>
-        </Paper>
-      </Popover>
+            <AirbnbSlider
+              min={10}
+              max={1000}
+              ThumbComponent={AirbnbThumbComponent}
+              getAriaLabel={index =>
+                index === 0 ? "Minimum price" : "Maximum price"
+              }
+              defaultValue={[10, 1000]}
+              value={value}
+              onChange={handleChange}
+            />
+            <Box
+              marginTop={3}
+              display="flex"
+              flexDirection="row"
+              justifyContent="space-between"
+              width={300}
+            >
+              <Typography className={classes.typographyMargin} gutterBottom>
+                Minimum : $ {value[0]}
+              </Typography>
+              <Typography className={classes.typographyMargin} gutterBottom>
+                Maximum : $ {value[1]}
+              </Typography>
+            </Box>
+            <Box
+              marginTop={5}
+              display="flex"
+              flexDirection="row"
+              justifyContent="space-between"
+              width={300}
+            >
+              <TextButton
+                size="small"
+                color="inherit"
+                onClick={handleClearClick}
+              >
+                Clear
+              </TextButton>
+              <ColorButton variant="contained" color="inherit">
+                Save
+              </ColorButton>
+            </Box>
+          </Paper>
+        </Popover>
+      </Hidden>
     </React.Fragment>
   );
 }

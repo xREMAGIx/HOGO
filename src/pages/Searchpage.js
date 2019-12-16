@@ -10,6 +10,7 @@ import CardMedia from "@material-ui/core/CardMedia";
 
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Grid from "@material-ui/core/Grid";
+import Hidden from "@material-ui/core/Hidden";
 
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
@@ -269,52 +270,94 @@ function Searchpage() {
         <Container className={classes.cardContainer} maxWidth="lg">
           <Grid className={classes.cardGrid} container spacing={1}>
             {cards.map(card => (
-              <Grid item key={card.id} md={12}>
+              <Grid item key={card.id} md={12} xs={12}>
                 <Card className={classes.card}>
                   <CardActionArea>
-                    <Grid container spacing={1} direction="row">
-                      <Grid item xs={4}>
-                        <CardMedia
-                          variant="square"
-                          className={classes.cardMedia}
-                          image={card.image}
-                          title="Image title"
-                        />
-                      </Grid>
-                      <Grid item xs={6}>
-                        <CardContent className={classes.cardContent}>
-                          <Typography gutterBottom variant="h5" component="h2">
-                            {card.title}
-                          </Typography>
-                          <Typography style={{ color: grey[500] }}>
-                            {card.amenities}
-                          </Typography>
-                        </CardContent>
-                      </Grid>
-                      <Grid
-                        container
-                        justify="center"
-                        direction="column"
-                        alignItems="center"
-                        xs={2}
-                      >
-                        <Grid item xs={8}>
-                          <StarIcon
-                            fontSize="small"
-                            style={{ color: "#FF5A60" }}
-                          ></StarIcon>
-                          <Typography
-                            fontSize="small"
-                            style={{ height: 25, width: 25 }}
-                          >
-                            {card.rating}
-                          </Typography>
+                    {/* Hotel cards for PC */}
+                    <Hidden xsDown>
+                      <Grid container spacing={1} direction="row">
+                        <Grid item xs={4}>
+                          <CardMedia
+                            variant="square"
+                            className={classes.cardMedia}
+                            image={card.image}
+                            title="Image title"
+                          />
                         </Grid>
-                        <Grid item>
-                          <Typography>{card.price}</Typography>
+                        <Grid item xs={6}>
+                          <CardContent className={classes.cardContent}>
+                            <Typography
+                              gutterBottom
+                              variant="h5"
+                              component="h2"
+                            >
+                              {card.title}
+                            </Typography>
+                            <Typography style={{ color: grey[500] }}>
+                              {card.amenities}
+                            </Typography>
+                          </CardContent>
+                        </Grid>
+                        <Grid
+                          container
+                          justify="center"
+                          direction="column"
+                          alignItems="center"
+                          xs={2}
+                        >
+                          <Grid item xs={8}>
+                            <StarIcon
+                              fontSize="small"
+                              style={{ color: "#FF5A60" }}
+                            ></StarIcon>
+                            <Typography
+                              fontSize="small"
+                              style={{ height: 25, width: 25 }}
+                            >
+                              {card.rating}
+                            </Typography>
+                          </Grid>
+                          <Grid item>
+                            <Typography>{card.price}</Typography>
+                          </Grid>
                         </Grid>
                       </Grid>
-                    </Grid>
+                    </Hidden>
+
+                    {/* Hotel cards for Phone */}
+                    <Hidden smUp>
+                      <CardMedia
+                        className={classes.cardMedia}
+                        image={card.image}
+                      />
+                      <CardContent className={classes.cardContent}>
+                        <Grid container>
+                          <Grid item xs={11}>
+                            <Typography
+                              gutterBottom
+                              variant="h5"
+                              component="h2"
+                            >
+                              {card.title}
+                            </Typography>
+                          </Grid>
+                          <Grid item xs={1}>
+                            <StarIcon
+                              fontSize="small"
+                              style={{ color: "#FF5A60" }}
+                            ></StarIcon>
+                            <Typography
+                              fontSize="small"
+                              style={{ height: 25, width: 25 }}
+                            >
+                              {card.rating}
+                            </Typography>
+                          </Grid>
+                        </Grid>
+
+                        <Typography>{card.price}</Typography>
+                      </CardContent>
+                    </Hidden>
                   </CardActionArea>
                 </Card>
               </Grid>
@@ -323,19 +366,21 @@ function Searchpage() {
         </Container>
 
         {/* Search map (must have internet)*/}
-        <Grid md={12}>
-          <Map className="map" center={position} zoom={zoom}>
-            <TileLayer
-              attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-            />
-            <Marker position={position}>
-              <Popup>
-                A pretty CSS3 popup. <br /> Easily customizable.
-              </Popup>
-            </Marker>
-          </Map>
-        </Grid>
+        <Hidden mdDown>
+          <Grid md={12}>
+            <Map className="map" center={position} zoom={zoom}>
+              <TileLayer
+                attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+              />
+              <Marker position={position}>
+                <Popup>
+                  A pretty CSS3 popup. <br /> Easily customizable.
+                </Popup>
+              </Marker>
+            </Map>
+          </Grid>
+        </Hidden>
       </Grid>
     </React.Fragment>
   );

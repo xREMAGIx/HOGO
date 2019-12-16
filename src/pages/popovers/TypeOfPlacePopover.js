@@ -11,6 +11,7 @@ import FormControl from "@material-ui/core/FormControl";
 import FormGroup from "@material-ui/core/FormGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
+import Hidden from "@material-ui/core/Hidden";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -107,95 +108,110 @@ export default function TypeOfPlacePopover() {
 
   return (
     <React.Fragment>
-      <Button
-        className={classes.btnSearchOptions}
-        variant="outlined"
-        color="inherit"
-        aria-describedby={id}
-        onClick={handleClick}
-      >
-        Type Of Place
-      </Button>
-      <Popover
-        id={id}
-        open={open}
-        anchorEl={anchorEl}
-        onClose={handleClose}
-        anchorOrigin={{
-          vertical: "bottom",
-          horizontal: "center"
-        }}
-        transformOrigin={{
-          vertical: "top",
-          horizontal: "center"
-        }}
-      >
-        <Paper className={classes.margin}>
-          <Typography className={classes.typographyMargin} gutterBottom>
-            Type Of Place
-          </Typography>
-          <FormControl className={classes.formControl} component="fieldset">
-            {/* <FormLabel component="legend">Assign responsibility</FormLabel> */}
-            <FormGroup>
-              <FormControlLabel
-                control={
-                  <BlackCheckbox
-                    checked={entirePlace}
-                    onChange={handleChange("entirePlace")}
-                    value="entirePlace"
-                  />
-                }
-                label="Entire Place"
-              />
-              <Typography variant="captiontext" className={classes.description}>
-                Have a entire place for yourself
-              </Typography>
-              <FormControlLabel
-                control={
-                  <BlackCheckbox
-                    checked={privateRoom}
-                    onChange={handleChange("privateRoom")}
-                    value="privateRoom"
-                  />
-                }
-                label="Private Room"
-              />
-              <Typography variant="captiontext" className={classes.description}>
-                Have your own room and share some common spaces
-              </Typography>
-              <FormControlLabel
-                control={
-                  <BlackCheckbox
-                    checked={hotelRoom}
-                    onChange={handleChange("hotelRoom")}
-                    value="hotelRoom"
-                  />
-                }
-                label="Hotel Room"
-              />
-              <Typography variant="captiontext" className={classes.description}>
-                Have a private or shared room in a boutique hotel, hostel, and
-                more
-              </Typography>
-            </FormGroup>
-            {/* <FormHelperText>Be careful</FormHelperText> */}
-          </FormControl>
-          <Box
-            marginTop={3}
-            display="flex"
-            flexDirection="row"
-            justifyContent="space-between"
-            width={300}
-          >
-            <TextButton size="small" color="inherit" onClick={handleClearClick}>
-              Clear
-            </TextButton>
-            <ColorButton variant="contained" color="inherit">
-              Save
-            </ColorButton>
-          </Box>
-        </Paper>
-      </Popover>
+      <Hidden smDown>
+        <Button
+          className={classes.btnSearchOptions}
+          variant="outlined"
+          color="inherit"
+          aria-describedby={id}
+          onClick={handleClick}
+        >
+          Type Of Place
+        </Button>
+        <Popover
+          id={id}
+          open={open}
+          anchorEl={anchorEl}
+          onClose={handleClose}
+          anchorOrigin={{
+            vertical: "bottom",
+            horizontal: "center"
+          }}
+          transformOrigin={{
+            vertical: "top",
+            horizontal: "center"
+          }}
+        >
+          <Paper className={classes.margin}>
+            <Typography className={classes.typographyMargin} gutterBottom>
+              Type Of Place
+            </Typography>
+            <FormControl className={classes.formControl} component="fieldset">
+              {/* <FormLabel component="legend">Assign responsibility</FormLabel> */}
+              <FormGroup>
+                <FormControlLabel
+                  control={
+                    <BlackCheckbox
+                      checked={entirePlace}
+                      onChange={handleChange("entirePlace")}
+                      value="entirePlace"
+                    />
+                  }
+                  label="Entire Place"
+                />
+                <Typography
+                  variant="captiontext"
+                  className={classes.description}
+                >
+                  Have a entire place for yourself
+                </Typography>
+                <FormControlLabel
+                  control={
+                    <BlackCheckbox
+                      checked={privateRoom}
+                      onChange={handleChange("privateRoom")}
+                      value="privateRoom"
+                    />
+                  }
+                  label="Private Room"
+                />
+                <Typography
+                  variant="captiontext"
+                  className={classes.description}
+                >
+                  Have your own room and share some common spaces
+                </Typography>
+                <FormControlLabel
+                  control={
+                    <BlackCheckbox
+                      checked={hotelRoom}
+                      onChange={handleChange("hotelRoom")}
+                      value="hotelRoom"
+                    />
+                  }
+                  label="Hotel Room"
+                />
+                <Typography
+                  variant="captiontext"
+                  className={classes.description}
+                >
+                  Have a private or shared room in a boutique hotel, hostel, and
+                  more
+                </Typography>
+              </FormGroup>
+              {/* <FormHelperText>Be careful</FormHelperText> */}
+            </FormControl>
+            <Box
+              marginTop={3}
+              display="flex"
+              flexDirection="row"
+              justifyContent="space-between"
+              width={300}
+            >
+              <TextButton
+                size="small"
+                color="inherit"
+                onClick={handleClearClick}
+              >
+                Clear
+              </TextButton>
+              <ColorButton variant="contained" color="inherit">
+                Save
+              </ColorButton>
+            </Box>
+          </Paper>
+        </Popover>
+      </Hidden>
     </React.Fragment>
   );
 }

@@ -12,7 +12,7 @@ import Container from "@material-ui/core/Container";
 
 import grey from "@material-ui/core/colors/grey";
 import Checkbox from "@material-ui/core/Checkbox";
-import { Grid } from "@material-ui/core";
+import { Grid, Divider } from "@material-ui/core";
 
 import AddCircleOutlineOutlinedIcon from "@material-ui/icons/AddCircleOutlineOutlined";
 import RemoveCircleOutlineIcon from "@material-ui/icons/RemoveCircleOutline";
@@ -58,6 +58,10 @@ const useStyles = makeStyles(theme => ({
   },
   btnSearchOptions: {
     margin: theme.spacing(1)
+  },
+  typographyMargin: {
+    marginTop: theme.spacing(3),
+    marginBottom: theme.spacing(1)
   }
 }));
 
@@ -290,6 +294,7 @@ export default function MoreFiltersModal() {
                   </IconButton>
                 </Box>
               </Box>
+              <Divider />
 
               {/* Amenities */}
               <Typography
@@ -349,6 +354,7 @@ export default function MoreFiltersModal() {
                   />
                 </Grid>
               </Grid>
+              <Divider />
 
               {/* Facilities */}
               <Typography
@@ -408,6 +414,7 @@ export default function MoreFiltersModal() {
                   />
                 </Grid>
               </Grid>
+              <Divider />
 
               {/* House Rules */}
               <Typography
@@ -455,8 +462,10 @@ export default function MoreFiltersModal() {
                   />
                 </Grid>
               </Grid>
+              <Divider />
             </Box>
 
+            {/* Modal buttons */}
             <Box
               marginTop={3}
               marginBottom={1}
