@@ -17,8 +17,8 @@ const useStyles = makeStyles(theme => ({
     width: 300
   },
   textToHost: {
-    margin: theme.spacing(2),
-    width: 500
+    padding: theme.spacing(2),
+    width: "100%"
   },
   numberText: {
     marginTop: theme.spacing(3)

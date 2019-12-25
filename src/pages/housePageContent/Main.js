@@ -149,7 +149,7 @@ export default function Main(props) {
   return (
     <React.Fragment>
       <Grid item xs={12} md={7} className={classes.grid}>
-        <Grid container>
+        <Grid container spacing={2}>
           <Grid item>
             <Typography variant="h3" gutterBottom>
               {title}

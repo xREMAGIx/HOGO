@@ -22,6 +22,7 @@ import IconButton from "@material-ui/core/IconButton";
 
 import SignUpModal from "../modals/SignUpModal";
 import LoginModal from "../modals/LoginModal";
+import HelpDrawer from "../drawers/HelpDrawer";
 
 const useStyles = makeStyles(theme => ({
   "@global": {
@@ -439,6 +440,10 @@ export default function SearchAppbar() {
     setOpen(false);
   };
 
+  // const handleOpenHelpDrawer = () => {
+  //   return <HelpDrawer />;
+  // };
+
   return (
     <React.Fragment>
       {/* Header AppBar */}
@@ -459,7 +464,7 @@ export default function SearchAppbar() {
             HoGo
           </Typography> */}
 
-          <Hidden smDown>
+          <Hidden xsDown>
             <Button href="/">Hogo</Button>
           </Hidden>
 
@@ -537,14 +542,16 @@ export default function SearchAppbar() {
               >
                 Become a host
               </Button>
-              <Button
+              {/* <Button
                 variant="button"
                 color="textPrimary"
                 href="#"
                 className={classes.link}
+                onClick={handleOpenHelpDrawer}
               >
                 Help
-              </Button>
+              </Button> */}
+              <HelpDrawer />
               <SignUpModal />
               <LoginModal />
             </div>
