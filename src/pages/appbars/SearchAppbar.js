@@ -454,16 +454,6 @@ export default function SearchAppbar() {
         className={classes.appBar}
       >
         <Toolbar className={classes.toolbar}>
-          {/* <Typography
-            variant="h4"
-            color="inherit"
-            noWrap
-            className={classes.toolbarTitle}
-            href="/"
-          >
-            HoGo
-          </Typography> */}
-
           <Hidden xsDown>
             <Button href="/">Hogo</Button>
           </Hidden>
@@ -542,15 +532,6 @@ export default function SearchAppbar() {
               >
                 Become a host
               </Button>
-              {/* <Button
-                variant="button"
-                color="textPrimary"
-                href="#"
-                className={classes.link}
-                onClick={handleOpenHelpDrawer}
-              >
-                Help
-              </Button> */}
               <HelpDrawer />
               <SignUpModal />
               <LoginModal />
