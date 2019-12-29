@@ -11,7 +11,7 @@ import RestaurantIcon from "@material-ui/icons/Restaurant";
 import WifiIcon from "@material-ui/icons/Wifi";
 import TvIcon from "@material-ui/icons/Tv";
 import LocalParkingIcon from "@material-ui/icons/LocalParking";
-import { Map, TileLayer, Marker, Popup } from "react-leaflet";
+import { Map, TileLayer } from "react-leaflet";
 import { useState } from "react";
 import DateFnsUtils from "@date-io/date-fns";
 import { MuiPickersUtilsProvider } from "@material-ui/pickers";
@@ -21,12 +21,11 @@ import Portal from "@material-ui/core/Portal";
 import Button from "@material-ui/core/Button";
 import Hidden from "@material-ui/core/Hidden";
 
-import { Badge } from "@material-ui/core";
 //import { makeJSDateObject } from "../../../utils/helpers";
 
 import "../Map.css";
 
-import Markdown from "../Markdown.js";
+// import Markdown from "../Markdown.js";
 
 const useStyles = makeStyles(theme => ({
   markdown: {
@@ -85,29 +84,6 @@ const reviews = [
   },
   {
     id: 6,
-    name: "Monica",
-    say: "Absolutely beautiful!!!",
-    star: 5
-  }
-];
-
-const reviewsAddition = [
-  {
-    id: 1,
-    name: "Monica",
-    say:
-      "I had great experiences here! They treat me so well and I can also use their kitchen.",
-    star: 4
-  },
-  {
-    id: 2,
-    name: "Tara ",
-    say:
-      "The Shell house is so cute! We loved the 2 shells because we were travelling with 2 couples so it worked out perfectly.",
-    star: 5
-  },
-  {
-    id: 3,
     name: "Monica",
     say: "Absolutely beautiful!!!",
     star: 5

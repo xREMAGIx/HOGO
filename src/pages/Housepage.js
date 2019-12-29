@@ -35,7 +35,6 @@ import { CardActionArea } from "@material-ui/core";
 import Main from "./housePageContent/Main.js";
 import BookingForm from "./housePageContent/BookingForm.js";
 import ImageCollectionModal from "./modals/ImageCollectionModal.js";
-import { callbackify } from "util";
 
 const useStyles = makeStyles(theme => ({
   "@global": {
@@ -239,34 +238,6 @@ const tutorialSteps = [
     label: "Goč, Serbia",
     imgPath:
       "https://images.unsplash.com/photo-1512341689857-198e7e2f3ca8?auto=format&fit=crop&w=400&h=250&q=60"
-  }
-];
-
-const images = [
-  {
-    url: "./images/newyork.jpg",
-    title: "New York",
-    width: "19%"
-  },
-  {
-    url: "images/tokyo.jpg",
-    title: "Tokyo",
-    width: "19%"
-  },
-  {
-    url: "images/sydney.jpg",
-    title: "Sydney",
-    width: "19%"
-  },
-  {
-    url: "images/paris.jpg",
-    title: "Paris",
-    width: "19%"
-  },
-  {
-    url: "images/singapore.jpg",
-    title: "Singapore",
-    width: "19%"
   }
 ];
 

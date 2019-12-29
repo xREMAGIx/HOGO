@@ -60,7 +60,11 @@ export default function ReviewBookingForm() {
   const classes = useStyles();
 
   return (
-    <Container component="main" maxWidth="xs">
+    <Container
+      component="main"
+      maxWidth="xs"
+      style={{ marginLeft: 1, paddingLeft: 1 }}
+    >
       <CssBaseline />
       <Paper elevation={5} className={classes.paper}>
         <Typography component="h1" variant="h5">

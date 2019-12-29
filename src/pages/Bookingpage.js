@@ -6,6 +6,12 @@ import Step from "@material-ui/core/Step";
 import StepLabel from "@material-ui/core/StepLabel";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
+import Toolbar from "@material-ui/core/Toolbar";
+import Link from "@material-ui/core/Link";
+import Container from "@material-ui/core/Container";
+import Box from "@material-ui/core/Box";
+import PrintIcon from "@material-ui/icons/Print";
+import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 
 import ReviewRuleForm from "./bookingPageContent/ReviewRuleForm";
 import ContactForm from "./bookingPageContent/ContactForm";
@@ -19,6 +25,7 @@ import Check from "@material-ui/icons/Check";
 import Grid from "@material-ui/core/Grid";
 
 import StepConnector from "@material-ui/core/StepConnector";
+import { AppBar } from "@material-ui/core";
 
 const useStyles = makeStyles(theme => ({
   appBar: {
@@ -135,6 +142,19 @@ function QontoStepIcon(props) {
   );
 }
 
+function Copyright() {
+  return (
+    <Typography variant="body2" color="textSecondary" align="center">
+      {"Copyright © "}
+      <Link color="inherit" href="/">
+        Hogo
+      </Link>{" "}
+      {new Date().getFullYear()}
+      {"."}
+    </Typography>
+  );
+}
+
 const steps = ["Review house rules", "Who's coming?", "Comfirm and pay"];
 
 function getStepContent(step) {
@@ -165,8 +185,15 @@ export default function Booking() {
   return (
     <React.Fragment>
       <CssBaseline />
+      <AppBar position="relative" style={{ backgroundColor: "#018F84" }}>
+        <Toolbar style={{ display: "flex", justifyContent: "center" }}>
+          <Button color="inherit" href="/">
+            Hogo
+          </Button>
+        </Toolbar>
+      </AppBar>
       <Grid container>
-        <Grid item xs={12} md={6}>
+        <Grid item xs={12} md={7}>
           <main className={classes.layout}>
             <Paper elevation={15} className={classes.paper}>
               <Typography component="h1" variant="h4" align="center">
@@ -192,10 +219,47 @@ export default function Booking() {
                     <Typography variant="h5" gutterBottom>
                       Thank you for your booking.
                     </Typography>
-                    <Typography variant="subtitle1">
-                      We have emailed your booking confirmation, and our host
-                      will contact you soon.
+                    <Typography variant="h6" gutterBottom>
+                      <Box
+                        fontWeight="fontWeightBold"
+                        m={1}
+                        justifyContent="center"
+                      >
+                        Your booking code is #123456
+                      </Box>
                     </Typography>
+                    <Typography variant="subtitle1">
+                      <Box fontStyle="italic" m={1}>
+                        We have emailed your booking confirmation, and our host
+                        will contact you soon. Thank you for choosing our
+                        service.
+                      </Box>
+                    </Typography>
+                    <Grid
+                      container
+                      justify="space-around"
+                      style={{ marginTop: 30 }}
+                    >
+                      <Grid item>
+                        <Button
+                          variant="contained"
+                          color="inherit"
+                          startIcon={<PrintIcon />}
+                        >
+                          Print bill
+                        </Button>
+                      </Grid>
+                      <Grid item>
+                        <Button
+                          variant="contained"
+                          href="/"
+                          style={{ backgroundColor: "#FF5A60", color: "white" }}
+                          startIcon={<ArrowBackIosIcon />}
+                        >
+                          Back to homepage
+                        </Button>
+                      </Grid>
+                    </Grid>
                   </React.Fragment>
                 ) : (
                   <React.Fragment>
@@ -223,10 +287,16 @@ export default function Booking() {
             </Paper>
           </main>
         </Grid>
-        <Grid item xs={12} md={6}>
+        <Grid item xs={12} md={5}>
           <ReviewBookingForm />
         </Grid>
       </Grid>
+
+      <Container maxWidth="md" component="footer" className={classes.footer}>
+        <Box mt={5}>
+          <Copyright />
+        </Box>
+      </Container>
     </React.Fragment>
   );
 }

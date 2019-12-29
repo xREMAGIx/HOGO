@@ -537,7 +537,7 @@ export default function SearchAppbar() {
               <Button
                 variant="button"
                 color="textPrimary"
-                href="#"
+                href="/hosting"
                 className={classes.link}
               >
                 Become a host

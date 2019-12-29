@@ -6,6 +6,8 @@ import Homepage from "./pages/Homepage.js";
 import Searchpage from "./pages/Searchpage.js";
 import Housepage from "./pages/Housepage.js";
 import Bookingpage from "./pages/Bookingpage.js";
+import Hostpage from "./pages/Hostpage.js";
+import BHost1 from "./pages/hostingPageContent/HostStep1.js";
 
 class App extends Component {
   render() {
@@ -22,6 +24,12 @@ class App extends Component {
         </Route>
         <Route exact path="/booking">
           <Bookingpage />
+        </Route>
+        <Route exact path="/hosting">
+          <Hostpage />
+        </Route>
+        <Route exact path="/bhost1">
+          <BHost1 />
         </Route>
       </Router>
     );
