@@ -9,6 +9,7 @@ import Bookingpage from "./pages/Bookingpage.js";
 import Hostpage from "./pages/Hostpage.js";
 import BHost1 from "./pages/hostingPageContent/HostStep1.js";
 import BHost2 from "./pages/hostingPageContent/HostStep2.js";
+import BHost3 from "./pages/hostingPageContent/HostStep3.js";
 
 class App extends Component {
   render() {
@@ -34,6 +35,9 @@ class App extends Component {
         </Route>
         <Route exact path="/bhost2">
           <BHost2 />
+        </Route>
+        <Route exact path="/bhost3">
+          <BHost3 />
         </Route>
       </Router>
     );
