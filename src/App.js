@@ -11,6 +11,7 @@ import BHost1 from "./pages/hostingPageContent/HostStep1.js";
 import BHost2 from "./pages/hostingPageContent/HostStep2.js";
 import BHost3 from "./pages/hostingPageContent/HostStep3.js";
 import Profilepage from "./pages/Profilepage.js";
+import Savedpage from "./pages/Savedpage.js";
 
 class App extends Component {
   render() {
@@ -42,6 +43,9 @@ class App extends Component {
         </Route>
         <Route exact path="/profile">
           <Profilepage />
+        </Route>
+        <Route exact path="/saved">
+          <Savedpage />
         </Route>
       </Router>
     );

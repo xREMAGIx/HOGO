@@ -7,7 +7,7 @@ import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import PropTypes from "prop-types";
 import SwipeableViews from "react-swipeable-views";
-import { makeStyles, useTheme } from "@material-ui/core/styles";
+import { makeStyles, useTheme, withStyles } from "@material-ui/core/styles";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import Grid from "@material-ui/core/Grid";
@@ -102,6 +102,49 @@ const useStyles = makeStyles(theme => ({
     flex: 1
   }
 }));
+
+const AntTabs = withStyles({
+  root: {
+    //borderBottom: "1px solid #e8e8e8",
+    backgroundColor: "#fffff"
+  },
+  indicator: {
+    backgroundColor: "#018F84"
+  }
+})(Tabs);
+
+const AntTab = withStyles(theme => ({
+  root: {
+    textTransform: "none",
+    minWidth: 72,
+    fontWeight: theme.typography.fontWeightRegular,
+    marginRight: theme.spacing(4),
+    fontFamily: [
+      "-apple-system",
+      "BlinkMacSystemFont",
+      '"Segoe UI"',
+      "Roboto",
+      '"Helvetica Neue"',
+      "Arial",
+      "sans-serif",
+      '"Apple Color Emoji"',
+      '"Segoe UI Emoji"',
+      '"Segoe UI Symbol"'
+    ].join(","),
+    "&:hover": {
+      color: "#22aba0",
+      opacity: 1
+    },
+    "&$selected": {
+      color: "#018F84",
+      fontWeight: theme.typography.fontWeightMedium
+    },
+    "&:focus": {
+      color: "#018F84"
+    }
+  },
+  selected: {}
+}))(props => <Tab disableRipple {...props} />);
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -450,7 +493,7 @@ export default function BHost2() {
 
       <div className={classes.root}>
         <AppBar position="static" color="default">
-          <Tabs
+          <AntTabs
             value={value}
             onChange={handleChange}
             indicatorColor="primary"
@@ -458,11 +501,11 @@ export default function BHost2() {
             variant="fullWidth"
             centered
           >
-            <Tab disabled label="Add photos" {...a11yProps(0)} />
-            <Tab disabled label="Describe your place" {...a11yProps(1)} />
-            <Tab disabled label="Name your place" {...a11yProps(2)} />
-            <Tab disabled label="Add mobile number" {...a11yProps(3)} />
-          </Tabs>
+            <AntTab disabled label="Add photos" {...a11yProps(0)} />
+            <AntTab disabled label="Describe your place" {...a11yProps(1)} />
+            <AntTab disabled label="Name your place" {...a11yProps(2)} />
+            <AntTab disabled label="Add mobile number" {...a11yProps(3)} />
+          </AntTabs>
         </AppBar>
         <SwipeableViews
           axis={theme.direction === "rtl" ? "x-reverse" : "x"}
@@ -665,7 +708,7 @@ export default function BHost2() {
                 <form>
                   <TextField
                     id="outlined-multiline-static"
-                    placeholder="Write your message here..."
+                    placeholder="Write your house name here..."
                     multiline
                     rows="1"
                     variant="outlined"

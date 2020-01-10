@@ -128,6 +128,49 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
+const AntTabs = withStyles({
+  root: {
+    //borderBottom: "1px solid #e8e8e8",
+    backgroundColor: "#fffff"
+  },
+  indicator: {
+    backgroundColor: "#018F84"
+  }
+})(Tabs);
+
+const AntTab = withStyles(theme => ({
+  root: {
+    textTransform: "none",
+    minWidth: 72,
+    fontWeight: theme.typography.fontWeightRegular,
+    marginRight: theme.spacing(4),
+    fontFamily: [
+      "-apple-system",
+      "BlinkMacSystemFont",
+      '"Segoe UI"',
+      "Roboto",
+      '"Helvetica Neue"',
+      "Arial",
+      "sans-serif",
+      '"Apple Color Emoji"',
+      '"Segoe UI Emoji"',
+      '"Segoe UI Symbol"'
+    ].join(","),
+    "&:hover": {
+      color: "#22aba0",
+      opacity: 1
+    },
+    "&$selected": {
+      color: "#018F84",
+      fontWeight: theme.typography.fontWeightMedium
+    },
+    "&:focus": {
+      color: "#018F84"
+    }
+  },
+  selected: {}
+}))(props => <Tab disableRipple {...props} />);
+
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -355,7 +398,7 @@ export default function BHost3() {
 
       <div className={classes.root}>
         <AppBar position="static" color="default">
-          <Tabs
+          <AntTabs
             value={value}
             onChange={handleChange}
             indicatorColor="primary"
@@ -363,17 +406,17 @@ export default function BHost3() {
             variant="fullWidth"
             centered
           >
-            <Tab disabled {...a11yProps(0)} />
-            <Tab disabled {...a11yProps(1)} />
-            <Tab disabled {...a11yProps(2)} />
-            <Tab disabled {...a11yProps(3)} />
-            <Tab disabled {...a11yProps(4)} />
-            <Tab disabled {...a11yProps(5)} />
-            <Tab disabled {...a11yProps(6)} />
-            <Tab disabled {...a11yProps(7)} />
-            <Tab disabled {...a11yProps(8)} />
-            <Tab disabled {...a11yProps(9)} />
-          </Tabs>
+            <AntTab disabled {...a11yProps(0)} />
+            <AntTab disabled {...a11yProps(1)} />
+            <AntTab disabled {...a11yProps(2)} />
+            <AntTab disabled {...a11yProps(3)} />
+            <AntTab disabled {...a11yProps(4)} />
+            <AntTab disabled {...a11yProps(5)} />
+            <AntTab disabled {...a11yProps(6)} />
+            <AntTab disabled {...a11yProps(7)} />
+            <AntTab disabled {...a11yProps(8)} />
+            <AntTab disabled {...a11yProps(9)} />
+          </AntTabs>
         </AppBar>
         <SwipeableViews
           axis={theme.direction === "rtl" ? "x-reverse" : "x"}

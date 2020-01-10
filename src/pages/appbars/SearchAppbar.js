@@ -5,7 +5,7 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import { fade, makeStyles, withStyles } from "@material-ui/core/styles";
 import Hidden from "@material-ui/core/Hidden";
-
+import Avatar from "@material-ui/core/Avatar";
 import SearchIcon from "@material-ui/icons/Search";
 import TextField from "@material-ui/core/TextField";
 import Autocomplete from "@material-ui/lab/Autocomplete";
@@ -19,10 +19,14 @@ import List from "@material-ui/core/List";
 import Divider from "@material-ui/core/Divider";
 import CloseIcon from "@material-ui/icons/Close";
 import IconButton from "@material-ui/core/IconButton";
-
-import SignUpModal from "../modals/SignUpModal";
+// import SignUpModal from "../modals/SignUpModal";
 // import LoginModal from "../modals/LoginModal";
 import HelpDrawer from "../drawers/HelpDrawer";
+import Menu from "@material-ui/core/Menu";
+import MenuItem from "@material-ui/core/MenuItem";
+import ListItemIcon from "@material-ui/core/ListItemIcon";
+import HomeWorkIcon from "@material-ui/icons/HomeWork";
+import HomeIcon from "@material-ui/icons/Home";
 
 const useStyles = makeStyles(theme => ({
   "@global": {
@@ -427,6 +431,37 @@ function ListItemLink(props) {
   return <ListItem button component="a" {...props} />;
 }
 
+const StyledMenu = withStyles({
+  paper: {
+    border: "1px solid #d3d4d5"
+  }
+})(props => (
+  <Menu
+    elevation={0}
+    getContentAnchorEl={null}
+    anchorOrigin={{
+      vertical: "bottom",
+      horizontal: "center"
+    }}
+    transformOrigin={{
+      vertical: "top",
+      horizontal: "center"
+    }}
+    {...props}
+  />
+));
+
+const StyledMenuItem = withStyles(theme => ({
+  root: {
+    "&:focus": {
+      backgroundColor: "#018F84",
+      "& .MuiListItemIcon-root, & .MuiListItemText-primary": {
+        color: theme.palette.common.white
+      }
+    }
+  }
+}))(MenuItem);
+
 export default function SearchAppbar() {
   const classes = useStyles();
 
@@ -440,9 +475,15 @@ export default function SearchAppbar() {
     setOpen(false);
   };
 
-  // const handleOpenHelpDrawer = () => {
-  //   return <HelpDrawer />;
-  // };
+  const [anchorEl, setAnchorEl] = React.useState(null);
+
+  const handleHostClick = event => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleHostClose = () => {
+    setAnchorEl(null);
+  };
 
   return (
     <React.Fragment>
@@ -454,11 +495,11 @@ export default function SearchAppbar() {
         className={classes.appBar}
       >
         <Toolbar className={classes.toolbar}>
-          <Hidden xsDown>
+          <Hidden mdDown>
             <Button href="/">Hogo</Button>
           </Hidden>
 
-          <Hidden smUp>
+          <Hidden lgUp>
             <Button onClick={handleClickOpen}>Hogo</Button>
           </Hidden>
 
@@ -524,25 +565,63 @@ export default function SearchAppbar() {
           {/* Menu button for PC */}
           <Hidden mdDown>
             <div className={classes.button}>
-              <Button
+              {/* <Button
                 variant="button"
                 color="textPrimary"
                 href="/hosting"
                 className={classes.link}
               >
-                Become a host
+                Hosting
+              </Button> */}
+
+              <Button
+                aria-controls="customized-menu"
+                aria-haspopup="true"
+                variant="button"
+                color="textPrimary"
+                onClick={handleHostClick}
+              >
+                Hosting
               </Button>
-              <HelpDrawer />
+              <StyledMenu
+                id="customized-menu"
+                anchorEl={anchorEl}
+                keepMounted
+                open={Boolean(anchorEl)}
+                onClose={handleHostClose}
+              >
+                <StyledMenuItem>
+                  <ListItemLink href="/hosting">
+                    <ListItemIcon>
+                      <HomeWorkIcon fontSize="small" />
+                    </ListItemIcon>
+                    <ListItemText primary="Host a house" />
+                  </ListItemLink>
+                </StyledMenuItem>
+                <StyledMenuItem>
+                  <ListItemLink href="#">
+                    <ListItemIcon>
+                      <HomeIcon fontSize="small" />
+                    </ListItemIcon>
+                    <ListItemText primary="Host list" />
+                  </ListItemLink>
+                </StyledMenuItem>
+              </StyledMenu>
+
               {/* <SignUpModal />
               <LoginModal /> */}
               <Button
                 variant="button"
                 color="textPrimary"
-                href="/profile"
+                href="/Saved"
                 className={classes.link}
               >
-                Profile
+                Saved
               </Button>
+              <HelpDrawer />
+              <IconButton href="/profile" className={classes.link}>
+                <Avatar src="https://source.unsplash.com/random" />
+              </IconButton>
             </div>
           </Hidden>
         </Toolbar>
@@ -578,17 +657,23 @@ export default function SearchAppbar() {
           </ListItem>
           <Divider />
           <ListItem button>
-            <ListItemText primary="Become a host" />
+            <ListItemLink href="/hosting">
+              <ListItemText primary="Hosting" />
+            </ListItemLink>
           </ListItem>
+          {/* <ListItem button>
+            <HelpDrawer />
+          </ListItem> */}
           <ListItem button>
-            <ListItemText primary="Help" />
+            <ListItemLink href="/saved">
+              <ListItemText primary="Saved" />
+            </ListItemLink>
           </ListItem>
+          <Divider />
           <ListItem button>
-            <ListItemText primary="Sign up" />
-            <SignUpModal />
-          </ListItem>
-          <ListItem button>
-            <ListItemText primary="Login" />
+            <ListItemLink href="/profile">
+              <ListItemText primary="Profile" />
+            </ListItemLink>
           </ListItem>
         </List>
       </Dialog>
