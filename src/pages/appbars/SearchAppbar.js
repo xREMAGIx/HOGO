@@ -21,7 +21,7 @@ import CloseIcon from "@material-ui/icons/Close";
 import IconButton from "@material-ui/core/IconButton";
 
 import SignUpModal from "../modals/SignUpModal";
-import LoginModal from "../modals/LoginModal";
+// import LoginModal from "../modals/LoginModal";
 import HelpDrawer from "../drawers/HelpDrawer";
 
 const useStyles = makeStyles(theme => ({
@@ -533,8 +533,16 @@ export default function SearchAppbar() {
                 Become a host
               </Button>
               <HelpDrawer />
-              <SignUpModal />
-              <LoginModal />
+              {/* <SignUpModal />
+              <LoginModal /> */}
+              <Button
+                variant="button"
+                color="textPrimary"
+                href="/profile"
+                className={classes.link}
+              >
+                Profile
+              </Button>
             </div>
           </Hidden>
         </Toolbar>

@@ -12,11 +12,9 @@ import Modal from "@material-ui/core/Modal";
 import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
 import Grid from "@material-ui/core/Grid";
-import Box from "@material-ui/core/Box";
 
 import GridList from "@material-ui/core/GridList";
 import GridListTile from "@material-ui/core/GridListTile";
-import GridListTileBar from "@material-ui/core/GridListTileBar";
 
 import PhotoLibraryIcon from "@material-ui/icons/PhotoLibrary";
 
@@ -213,7 +211,7 @@ function SwipeableTextMobileStepper() {
                       key={tile.imgPath}
                       style={{ width: 100, height: 100 }}
                     >
-                      <img src={tile.imgPath} />
+                      <img src={tile.imgPath} alt="Something wrong" />
                     </GridListTile>
                   ))}
                 </GridList>

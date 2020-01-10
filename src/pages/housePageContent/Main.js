@@ -19,7 +19,6 @@ import { DatePicker } from "@material-ui/pickers";
 import Rating from "@material-ui/lab/Rating";
 import Portal from "@material-ui/core/Portal";
 import Button from "@material-ui/core/Button";
-import Hidden from "@material-ui/core/Hidden";
 
 //import { makeJSDateObject } from "../../../utils/helpers";
 
@@ -44,10 +43,6 @@ const useStyles = makeStyles(theme => ({
     color: "#018F84"
   }
 }));
-
-function getRandomNumber(min, max) {
-  return Math.round(Math.random() * (max - min) + min);
-}
 
 const reviews = [
   {
@@ -92,7 +87,7 @@ const reviews = [
 
 export default function Main(props) {
   const classes = useStyles();
-  const { posts, title } = props;
+  const { title } = props;
 
   const [lat] = React.useState(51.505);
   const [lng] = React.useState(-0.09);
@@ -107,19 +102,6 @@ export default function Main(props) {
 
   const handleClick = () => {
     setShow(!show);
-  };
-
-  const [selectedDays, setSelectedDays] = useState([1, 2, 15]);
-  const [selectedDate, handleDateChange] = useState(new Date());
-
-  const handleMonthChange = async () => {
-    // just select random days to simulate server side based data
-    return new Promise(resolve => {
-      setTimeout(() => {
-        setSelectedDays([1, 2, 3].map(() => getRandomNumber(1, 28)));
-        resolve();
-      }, 1000);
-    });
   };
 
   return (
