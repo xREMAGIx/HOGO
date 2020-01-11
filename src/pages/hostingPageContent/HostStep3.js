@@ -666,7 +666,7 @@ export default function BHost3() {
                   <Paper component="form" className={classes.numberRoot}>
                     <InputBase
                       className={classes.numberInput}
-                      placeholder="Phone number"
+                      placeholder="Ex: Not drinking in pool,..."
                       inputProps={{ "aria-label": "search google maps" }}
                     />
                     <Divider
@@ -861,8 +861,8 @@ export default function BHost3() {
                     You’re protected throughout
                   </Typography>
                   <Typography variant="subtitle1" gutterBottom>
-                    In the rare case there are issues, Airbnb has you covered
-                    with 24/7 customer support, a $1,000,000 Host Guarantee, and
+                    In the rare case there are issues, Hogo has you covered with
+                    24/7 customer support, a $1,000,000 Host Guarantee, and
                     completely penalty-free cancellations if you’re
                     uncomfortable with a reservation.
                   </Typography>

@@ -286,7 +286,7 @@ export default function Homepage() {
           {cards.map(card => (
             <Grid item key={card.id} xs={12} sm={6} md={3}>
               <Card className={classes.card}>
-                <CardActionArea>
+                <CardActionArea href="/house">
                   <CardMedia
                     className={classes.cardMedia}
                     image={card.image}

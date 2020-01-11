@@ -607,16 +607,21 @@ export default function SearchAppbar() {
                   </ListItemLink>
                 </StyledMenuItem>
               </StyledMenu>
-
-              {/* <SignUpModal />
-              <LoginModal /> */}
               <Button
                 variant="button"
                 color="textPrimary"
-                href="/Saved"
+                href="/saved"
                 className={classes.link}
               >
                 Saved
+              </Button>
+              <Button
+                variant="button"
+                color="textPrimary"
+                href="/inbox"
+                className={classes.link}
+              >
+                Inbox
               </Button>
               <HelpDrawer />
               <IconButton href="/profile" className={classes.link}>
